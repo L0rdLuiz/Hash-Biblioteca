@@ -40,23 +40,19 @@ struct Editora {
     int anoFundacao;
 };
 
-// Estrutura genérica para o nó da lista encadeada
 template <typename T>
 struct No {
     T item;
     No* proximo;
 };
 
-// Função de Hash (mapear matrícula ao índice da tabela hash)
 int funcaoHash(int matricula) {
     return matricula % TAMANHO_TABELA_HASH;
 }
 
-// Tabela Hash genérica
 template <typename T>
 No<T>* tabelaHash[TAMANHO_TABELA_HASH];
 
-// Inicializar a Tabela Hash genérica
 template <typename T>
 void inicializarTabela() {
     for (int i = 0; i < TAMANHO_TABELA_HASH; i++) {
@@ -64,7 +60,7 @@ void inicializarTabela() {
     }
 }
 
-// Função para inserir um novo item na tabela hash genérica
+// FunÃ§Ã£o para inserir um novo item
 template <typename T>
 void inserirItem(T novoItem) {
     int indice = funcaoHash(novoItem.matricula);
@@ -74,7 +70,7 @@ void inserirItem(T novoItem) {
     tabelaHash<T>[indice] = novoNo;
 }
 
-// Função para buscar um item na tabela hash genérica
+// FunÃ§Ã£o para buscar um item
 template <typename T>
 T* buscarItem(int matricula) {
     int indice = funcaoHash(matricula);
@@ -90,7 +86,7 @@ T* buscarItem(int matricula) {
     return nullptr;
 }
 
-// Função para remover um item da tabela hash genérica
+// FunÃ§Ã£o para remover um item
 template <typename T>
 bool removerItem(int matricula) {
     int indice = funcaoHash(matricula);
@@ -100,9 +96,9 @@ bool removerItem(int matricula) {
     while (auxP != nullptr) {
         if (auxP->item.matricula == matricula) {
             if (auxA == nullptr) {
-                tabelaHash<T>[indice] = auxP->proximo;  // Remover do início
+                tabelaHash<T>[indice] = auxP->proximo;
             } else {
-                auxA->proximo = auxP->proximo;  // Remover do meio/fim
+                auxA->proximo = auxP->proximo;
             }
             delete auxP;
             return true;
@@ -114,47 +110,47 @@ bool removerItem(int matricula) {
     return false;
 }
 
-// Função para alterar informações de um livro
+// FunÃ§Ã£o para alterar informaÃ§Ãµes
 void alterarLivro(int matricula, string novoTitulo, int novoAno, string novoGenero) {
-    Livro* livro = buscarItem<Livro>(matricula);  // Busca o livro corretamente
+    Livro* livro = buscarItem<Livro>(matricula);
     if (livro != nullptr) {
         livro->titulo = novoTitulo;
         livro->ano = novoAno;
         livro->genero = novoGenero;
         cout << "Livro atualizado com sucesso." << endl;
     } else {
-        cout << "Livro não encontrado." << endl;
+        cout << "Livro nÃ£o encontrado." << endl;
     }
 }
 
-// Função para alterar informações de uma revista
+// FunÃ§Ã£o para alterar informaÃ§Ãµes
 void alterarRevista(int matricula, string novoTitulo, int novoAno, int novaEdicao) {
-    Revista* revista = buscarItem<Revista>(matricula);  // Busca a revista corretamente
+    Revista* revista = buscarItem<Revista>(matricula);
     if (revista != nullptr) {
         revista->titulo = novoTitulo;
         revista->ano = novoAno;
         revista->edicao = novaEdicao;
         cout << "Revista atualizada com sucesso." << endl;
     } else {
-        cout << "Revista não encontrada." << endl;
+        cout << "Revista nÃ£o encontrada." << endl;
     }
 }
 
-// Função para adicionar autor a um livro
+// FunÃ§Ã£o para adicionar autor a um livro
 bool adicionarAutorAoLivro(int matriculaLivro, Autor novoAutor) {
-    Livro* livro = buscarItem<Livro>(matriculaLivro);  // Corrigir busca de livro
+    Livro* livro = buscarItem<Livro>(matriculaLivro);
     if (livro != nullptr) {
         if (livro->numAutores < 3) {
-            livro->autores[livro->numAutores] = novoAutor;  // Adiciona o autor
+            livro->autores[livro->numAutores] = novoAutor;
             livro->numAutores++;
             cout << "Autor adicionado ao livro." << endl;
             return true;
         } else {
-            cout << "Esse livro já possui 3 autores." << endl;
+            cout << "Esse livro jÃ¡ possui 3 autores." << endl;
             return false;
         }
     } else {
-        cout << "Livro não encontrado." << endl;
+        cout << "Livro nÃ£o encontrado." << endl;
         return false;
     }
 }
@@ -164,8 +160,8 @@ int main() {
 
     // Inserir Livros
     Livro l1 = {101, "Como ficar rico", 2010, "Auto-Ajuda"};
-    Livro l2 = {102, "Diário do Marçal", 2022, "Biografia"};
-    Livro l3 = {111, "Bolsonaro: o Anti-Comunista", 2018, "Ficção"};
+    Livro l2 = {102, "DiÃ¡rio do MarÃ§al", 2022, "Biografia"};
+    Livro l3 = {111, "Bolsonaro: o Anti-Comunista", 2018, "FicÃ§Ã£o"};
     inserirItem(l1);
     inserirItem(l2);
     inserirItem(l3);
@@ -175,7 +171,7 @@ int main() {
     if (resultado != nullptr) {
         cout << "Livro encontrado: " << resultado->titulo << endl;
     } else {
-        cout << "Livro não encontrado." << endl;
+        cout << "Livro nÃ£o encontrado." << endl;
     }
 
     // Remover um Livro
@@ -183,7 +179,7 @@ int main() {
     if (removido) {
         cout << "Livro removido." << endl;
     } else {
-        cout << "Livro não encontrado." << endl;
+        cout << "Livro nÃ£o encontrado." << endl;
     }
 
     // Alterar Livro
@@ -191,9 +187,8 @@ int main() {
 
     // Adicionar autores ao livro
     Autor a1 = {201, "Bolsonaro", 5};
-    Autor a2 = {202, "Marçal", 61};
+    Autor a2 = {202, "MarÃ§al", 61};
     Autor a3 = {203, "Primo-Rico", 6};
-    adicionarAutorAoLivro(101, a3);  // Não deve funcionar, pois foi removido
     adicionarAutorAoLivro(102, a2);
     adicionarAutorAoLivro(111, a1);
 
