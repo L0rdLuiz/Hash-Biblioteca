@@ -2,6 +2,8 @@
 #include <string>
 #include <fstream>
 
+//Trabalho feito por: Isabela Silvério, Luiz Antonio Haenisch
+
 using namespace std;
 
 const int TAMANHO_TABELA_HASH = 10;
@@ -440,43 +442,59 @@ void alterarEditora(int matricula) {
     }
 }
 
-void relatorioLivrosPorAutor(string autorNome) {
+void relatorioLivrosPorAutor(const string& autorNome) {
     cout << "Relatorio de Livros por Autor: " << autorNome << endl;
+
     for (int i = 0; i < TAMANHO_TABELA_HASH; i++) {
-        No < Livro > * aux = tabelaHash < Livro > [i];
+        No<Livro>* aux = tabelaHash<Livro>[i];
+
         while (aux != nullptr) {
-            for (int j = 0; j < aux -> item.numAutores; j++) {
-                if (aux -> item.autores[j].nome == autorNome) {
-                    cout << "Livro encontrado: " << aux -> item.titulo << ", Ano: " << aux -> item.ano << ", Matricula: " << aux -> item.matricula << endl;
+            for (int j = 0; j < aux->item.numAutores; j++) {
+                if (aux->item.autores[j].nome == autorNome) {
+                    cout << "Livro encontrado: "
+                         << aux->item.titulo << ", Ano: "
+                         << aux->item.ano << ", Matricula: "
+                         << aux->item.matricula << endl;
+                    break;
                 }
             }
-        aux = aux -> proximo;
+            aux = aux->proximo;
         }
     }
 }
 
-void relatorioLivrosPorEditora(string editoraNome) {
+void relatorioLivrosPorEditora(const string& editoraNome) {
     cout << "Relatorio de Livros por Editora: " << editoraNome << endl;
+
     for (int i = 0; i < TAMANHO_TABELA_HASH; i++) {
-        No < Livro > * aux = tabelaHash < Livro > [i];
+        No<Livro>* aux = tabelaHash<Livro>[i];
+
         while (aux != nullptr) {
-            if (aux -> item.editora == editoraNome) {
-                cout << "Livro encontrado: " << aux -> item.titulo << ", Ano: " << aux -> item.ano << ", Matricula: " << aux -> item.matricula << endl;
+            if (aux->item.editora == editoraNome) {
+                cout << "Livro encontrado: "
+                     << aux->item.titulo << ", Ano: "
+                     << aux->item.ano << ", Matricula: "
+                     << aux->item.matricula << endl;
             }
-        aux = aux -> proximo;
+            aux = aux->proximo;
         }
     }
 }
 
-void relatorioLivrosPorGenero(string genero) {
+void relatorioLivrosPorGenero(const string& genero) {
     cout << "Relatorio de Livros por Gênero: " << genero << endl;
+
     for (int i = 0; i < TAMANHO_TABELA_HASH; i++) {
-        No < Livro > * aux = tabelaHash < Livro > [i];
+        No<Livro>* aux = tabelaHash<Livro>[i];
+
         while (aux != nullptr) {
-            if (aux -> item.genero == genero) {
-                cout << "Livro encontrado: " << aux -> item.titulo << ", Ano: " << aux -> item.ano << ", Matricula: " << aux -> item.matricula << endl;
+            if (aux->item.genero == genero) {
+                cout << "Livro encontrado: "
+                     << aux->item.titulo << ", Ano: "
+                     << aux->item.ano << ", Matricula: "
+                     << aux->item.matricula << endl;
             }
-        aux = aux -> proximo;
+            aux = aux->proximo;
         }
     }
 }
@@ -696,6 +714,7 @@ void menu() {
     int opcao;
     do {
         system("cls");
+
         cout << "\n--- ---MENU--- ---" << endl;
         cout << "Escolha uma opcaoo: " << endl;
         cout << "1. Cadastrar (autores e itens)" << endl;
